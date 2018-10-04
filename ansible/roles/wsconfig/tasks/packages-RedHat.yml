@@ -1,0 +1,4 @@
+- name: install tvscode
+  dnf:
+    name: code
+    state: latest
