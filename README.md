@@ -1,0 +1,2 @@
+# wsconfig
+laptop configuration 
