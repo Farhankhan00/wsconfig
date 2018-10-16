@@ -1,4 +1,5 @@
-- name: install tvscode
+- name: install desired packages for RedHat
   dnf:
-    name: code
+    name: "{{ item }}"
     state: latest
+  with_items: "{{ rhel_package_list }}"

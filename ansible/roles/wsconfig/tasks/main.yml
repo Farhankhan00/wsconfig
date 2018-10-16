@@ -1,3 +1,9 @@
 - include_tasks: "repos-{{ ansible_os_family }}.yml"
   
 - include_tasks: "packages-{{ ansible_os_family }}.yml"
+
+- include_tasks: dotfiles.yml
+  tags: 
+    - dotfiles
+
+- include_tasks: vscode-extensions.yml

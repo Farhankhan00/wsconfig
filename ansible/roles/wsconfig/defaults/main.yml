@@ -1,0 +1,60 @@
+os_user: fkhan
+
+dnf_repos: 
+  - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+  - https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+
+
+rhel_package_list: 
+  - code 
+  - terminator
+  - google-chrome-stable
+  #- slack
+
+rhel_repos: 
+  - name: vscode
+    description: visual studio code repo
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    gpgcheck: yes
+  - name: chrome
+    description: chrome repo
+    baseurl: "http://dl.google.com/linux/chrome/rpm/stable/{{ ansible_architecture }}"
+    gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    gpgcheck: yes
+  # - name: slack 
+  #   description: slack repo
+  #   gpgkey: https://copr-be.cloud.fedoraproject.org/results/jdoss/slack-repo/pubkey.gpg
+  #   gpgcheck: yes
+  #   baseurl: https://copr-be.cloud.fedoraproject.org/results/jdoss/slack-repo/fedora-$releasever-$basearch/
+
+dotfiles: 
+  - name: vscode
+    src: dotfiles/vscode-settings.json.j2
+    dest: "/home/{{ os_user }}/.config/Code/User/settings.json"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
+  - name: terminator
+    src: dotfiles/terminator.j2
+    dest: "/home/{{ os_user }}/.config/terminator/config"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
+
+create_directories:
+  - name: terminator
+    path: "/home/{{ os_user }}/.config/terminator/"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+
+vscode_extensions:
+  - gerane.Theme-Brogrammer
+  - haaaad.ansible
+  - mauve.terraform
+  - oderwat.indent-rainbow
+  - wholroyd.jinja
+  - EditorConfig.editorconfig
+
+    
+    

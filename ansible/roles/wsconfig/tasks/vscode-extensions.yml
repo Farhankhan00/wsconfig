@@ -1,0 +1,9 @@
+- name: install vscode extensions
+  shell: code --install-extension {{ item }}
+  with_items: "{{ vscode_extensions }}"
+  become_user: "{{ os_user }}"
+  register: result
+  until: result is success 
+  retries: 3
+  delay: 5
+  
