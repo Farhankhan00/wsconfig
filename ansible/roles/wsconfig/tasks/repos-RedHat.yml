@@ -1,5 +1,15 @@
-- name: Add vscode yum repository
+- name: Add rhel repositories
   yum_repository:
-    name: vscode
-    description: vs code repository
-    baseurl: https://packages.microsoft.com/keys/microsoft.asc
+    name: "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: "{{ item.gpgcheck }}"
+    gpgkey: "{{ item.gpgkey }}"
+    enabled: yes
+  with_items: "{{ rhel_repos }}"
+
+- name: Add rpmfusion yum repository
+  dnf:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ dnf_repos }}"
