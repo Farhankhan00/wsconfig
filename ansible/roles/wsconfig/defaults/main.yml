@@ -1,4 +1,6 @@
 os_user: fkhan
+pkg_retry_num: 3
+pkg_retry_delay: 5
 
 dnf_repos: 
   - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
@@ -41,6 +43,18 @@ dotfiles:
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
     mode: u=rwx,g=r,o=r
+  - name: bash_profile
+    src: dotfiles/bash_profile.j2
+    dest: "/home/{{ os_user }}/bash_profile"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
+  - name: awsconfig
+    src: dotfiles/awsconfig.j2
+    dest: "/home/{{ os_user }}/.aws/config"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
 
 create_directories:
   - name: terminator
@@ -56,5 +70,40 @@ vscode_extensions:
   - wholroyd.jinja
   - EditorConfig.editorconfig
 
+hashicorp_binaries:
+  - name: terraform
+    src: https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+    dest: /usr/bin/
+    mode: 0555
+    owner: root
+    group: root
+  - name: packer
+    src: https://releases.hashicorp.com/packer/1.2.5/packer_1.2.5_linux_amd64.zip
+    dest: /usr/bin/
+    mode: 0555
+    owner: root
+    group: root
+
+unzipped_binaries:
+  # - name: terragrunt
+  #   src: https://github.com/gruntwork-io/terragrunt/releases/download/v0.16.8/terragrunt_linux_amd64
+  #   dest: /usr/bin/tf
+  #   mode: 0555
+  #   owner: root
+  #   group: root
+  # - name: kubectl
+  #   src: https://storage.googleapis.com/kubernetes-release/release/v1.10.0/bin/linux/amd64/kubectl
+  #   dest: /usr/bin/kubectl
+  #   mode: 0555
+  #   owner: root
+  #   group: root
+    ## 4.2.x seems to be poison on Linux
+    ## keep at 4.1.0 until fixed
+  - name: aws-vault
+    src: https://github.com/99designs/aws-vault/releases/download/v4.1.0/aws-vault-linux-amd64
+    dest: /usr/bin/aws-vault
+    mode: 0555
+    owner: root
+    group: root
     
     
