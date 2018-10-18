@@ -1,0 +1,26 @@
+- name: Unarchive zipped hashicorp binaries
+  unarchive:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    remote_src: yes
+  with_items: "{{ hashicorp_binaries }}"
+  register: result
+  until: result is success
+  retries: "{{ pkg_retry_num }}"
+  delay: "{{ pkg_retry_delay }}"
+
+- name: Download unzipped binaries
+  get_url:
+    url: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+  with_items: "{{ unzipped_binaries }}"
+  register: result
+  until: result is success
+  retries: "{{ pkg_retry_num }}"
+  delay: "{{ pkg_retry_delay }}"

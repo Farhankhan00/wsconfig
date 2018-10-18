@@ -7,3 +7,6 @@
     - dotfiles
 
 - include_tasks: vscode-extensions.yml
+
+- include_tasks: binaries.yml
+ 
