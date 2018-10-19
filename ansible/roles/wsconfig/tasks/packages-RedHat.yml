@@ -3,3 +3,8 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ rhel_package_list }}"
+
+- name: install slack with yum or apt
+  action: "dnf name=https://downloads.slack-edge.com/linux_releases/slack-3.3.3-0.1.fc21.x86_64.rpm"
+  sudo: yes
+    

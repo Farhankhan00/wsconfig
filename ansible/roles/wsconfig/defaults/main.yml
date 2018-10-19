@@ -11,7 +11,7 @@ rhel_package_list:
   - code 
   - terminator
   - google-chrome-stable
-  #- slack
+  - slack
 
 rhel_repos: 
   - name: vscode
@@ -24,11 +24,6 @@ rhel_repos:
     baseurl: "http://dl.google.com/linux/chrome/rpm/stable/{{ ansible_architecture }}"
     gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
     gpgcheck: yes
-  # - name: slack 
-  #   description: slack repo
-  #   gpgkey: https://copr-be.cloud.fedoraproject.org/results/jdoss/slack-repo/pubkey.gpg
-  #   gpgcheck: yes
-  #   baseurl: https://copr-be.cloud.fedoraproject.org/results/jdoss/slack-repo/fedora-$releasever-$basearch/
 
 dotfiles: 
   - name: vscode
@@ -99,11 +94,13 @@ unzipped_binaries:
   #   group: root
     ## 4.2.x seems to be poison on Linux
     ## keep at 4.1.0 until fixed
+
   - name: aws-vault
     src: https://github.com/99designs/aws-vault/releases/download/v4.1.0/aws-vault-linux-amd64
     dest: /usr/bin/aws-vault
     mode: 0555
     owner: root
     group: root
-    
-    
+
+
+
