@@ -13,3 +13,12 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ dnf_repos }}"
+
+- name: Add chrome DNF repository
+  yum_repository:
+    name: google-chrome
+    description: Google Chrome Browser
+    baseurl: "http://dl.google.com/linux/chrome/rpm/stable/{{ ansible_architecture }}"
+    gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    gpgcheck: yes
+    enabled: yes
