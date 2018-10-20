@@ -1,6 +1,7 @@
 os_user: fkhan
 pkg_retry_num: 3
 pkg_retry_delay: 5
+slack_version: 3.3.3-0.1
 
 dnf_repos: 
   - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
