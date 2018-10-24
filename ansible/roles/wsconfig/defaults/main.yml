@@ -1,6 +1,8 @@
 os_user: fkhan
 pkg_retry_num: 3
 pkg_retry_delay: 5
+user_name: Farhan Khan
+email: farhannaveed6@gmail.com
 
 dnf_repos: 
   - https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
@@ -40,7 +42,7 @@ dotfiles:
     mode: u=rwx,g=r,o=r
   - name: bash_profile
     src: dotfiles/bash_profile.j2
-    dest: "/home/{{ os_user }}/bash_profile"
+    dest: "/home/{{ os_user }}/.bash_profile"
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
     mode: u=rwx,g=r,o=r
@@ -50,13 +52,26 @@ dotfiles:
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
     mode: u=rwx,g=r,o=r
+  - name: gitconfig
+    src: dotfiles/gitconfig.j2
+    dest: "/home/{{ os_user }}/.gitconfig"
+    owner: "{{ os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
 
 create_directories:
   - name: terminator
     path: "/home/{{ os_user }}/.config/terminator/"
     owner: "{{ os_user }}"
     group: "{{ os_user }}"
-
+  - path: "/home/{{ os_user }}/.config/Code/User/"
+    owner: "{{os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
+  - path: "/home/{{ os_user }}/.aws/"
+    owner: "{{os_user }}"
+    group: "{{ os_user }}"
+    mode: u=rwx,g=r,o=r
 vscode_extensions:
   - gerane.Theme-Brogrammer
   - haaaad.ansible

@@ -28,3 +28,5 @@ function awslogin() {
     _FF_LOCATION=$(which firefox)
     aws-vault --debug login $1 --stdout | xargs -t "${_FF_LOCATION}" --private-window
 }
+
+export AWS_VAULT_BACKEND=secret-service
