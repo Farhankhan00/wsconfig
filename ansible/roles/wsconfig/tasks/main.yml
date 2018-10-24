@@ -1,6 +1,8 @@
 - include_tasks: "repos-{{ ansible_os_family }}.yml"
   
 - include_tasks: "packages-{{ ansible_os_family }}.yml"
+  tags: 
+    - packages
 
 - include_tasks: dotfiles.yml
   tags: 

@@ -10,9 +10,8 @@
 
 - name: Add rpmfusion yum repository
   dnf:
-    name: "{{ item }}"
+    name: "{{ dnf_repos }}"
     state: latest
-  with_items: "{{ dnf_repos }}"
 
 - name: Add chrome DNF repository
   yum_repository:
